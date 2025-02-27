@@ -1,0 +1,165 @@
+{
+    "PROJECT": {
+        "NAME": "YOUR_PROJECT_NAME",
+        "NOTES": "YOUR_PROJECT_NAME",
+        "TAGS": [
+            "YOUR",
+            "TAGS",
+            "HERE"
+        ],
+        "ENTITY": "YOUR_ENTITY"
+    },
+    "MODE": "TEST",
+    "TESTING": {
+        "R_PRECISION": 1,
+        "RESULT_PATH": "/path/to/results/xray/test",
+        "N_WAY": 20,
+        "K_SHOT": 1,
+        "Q_QUERIES": 1,
+        "TOP_K": 5,
+        "ITERATIONS": 100,
+        "GRADCAM_TARGET_CONV": 1
+    },
+    "EMBEDDER": {
+        "DATA_SPLIT": "/path/to/datasets/xray/splits/ChestXray-14_splits/test_split.txt",
+        "RESULT_PATH": "/path/to/results/xray/embeddings/xray_resnet_512/embeddings.pkl"
+    },
+    "VALIDATION": {
+        "R_PRECISION": 1,
+        "RESULT_PATH": "/path/to/results/xray/val",
+        "N_WAY": 20,
+        "K_SHOT": 1,
+        "Q_QUERIES": 1,
+        "TOP_K": 5,
+        "ITERATIONS": 100,
+        "GRADCAM_TARGET_CONV": 1
+    },
+    "TRAINING": {
+        "NUM_EPOCHS": 400,
+        "SAMPLES_PER_EPOCH": 2250,
+        "BATCH_SIZE": 225,
+        "WARM_RESTART_EVERY_N_SAMPLES": 22500,
+        "LOSS": {
+            "NAME": "TRIPLET_LOSS",
+            "SETTINGS": {
+                "margin": 4,
+                "ratio_hard_easy_negative": 1
+            }
+        },
+        "OPTIMIZER": {
+            "NAME": "ADAMW",
+            "SETTINGS": {
+                "lr": 0.001
+            }
+        }
+    },
+    "DATASET": {
+        "DATASET_NAME": "chestxray14",
+        "DATASET_PATH": "/path/to/datasets/xray/ChestX-ray14/images",
+        "DATASET_META_PATH": null,
+        "DATASET_PATH_TEST": "/path/to/datasets/xray/ChestX-ray14/images",
+        "TRAINING_SET": "/path/to/datasets/xray/splits/ChestXray-14_splits/train_split.txt",
+        "VALIDATION_SET": "/path/to/datasets/xray/splits/ChestXray-14_splits/val_split.txt",
+        "TEST_SET": "/path/to/datasets/xray/splits/ChestXray-14_splits/test_split.txt",
+        "FILE_TYPE": ".png",
+        "ANCHOR_MODALITIES": [
+            "xray"
+        ],
+        "POSITIVE_MODALITIES": [
+            "xray"
+        ],
+        "K_MODALITIES": [
+            "xray"
+        ],
+        "Q_MODALITIES": [
+            "xray"
+        ],
+        "TRANSFORMS": "CHESTXRAY14",
+        "TRAINING_NUM_POS": 1,
+        "TRAINING_N_SHOT": 1,
+        "NUMBER_OF_IMAGES_PER_PATIENT": 2,
+        "RESIZE": [
+            512,
+            512
+        ]
+    },
+    "MODEL": {
+        "NAME": "ResNet50",
+        "CHECKPOINT": null,
+        "SETTINGS": {
+            "spatial_dims": 2,
+            "in_channels": 3,
+            "pretrained": false,
+            "fixed_params": false,
+            "embedding_size": 128
+        }
+    },
+    "PLOTTING_TRAINING": {
+        "2D_TSNE_WITH_IMAGES": {
+            "PLOT": false
+        },
+        "3D_TSNE": {
+            "PLOT": false,
+            "GROUP_BY": null
+        },
+        "TRIPLETS": {
+            "PLOT": false
+        },
+        "SUPPORT_QUERY": {
+            "PLOT": true
+        }
+    },
+    "PLOTTING_TESTING": {
+        "FREQUENCY": 100,
+        "2D_TSNE_WITH_IMAGES": {
+            "PLOT": false
+        },
+        "3D_TSNE": {
+            "PLOT": false,
+            "GROUP_BY": {
+                "modality": "xray",
+                "attribute": "Patient Age"
+            }
+        },
+        "TRIPLETS": {
+            "PLOT": false
+        },
+        "SUPPORT_QUERY": {
+            "PLOT": false
+        },
+        "GRADCAM": {
+            "PLOT": false
+        },
+        "SIMILARITY_MATRIX": {
+            "PLOT": true
+        }
+    },
+    "PLOTTING_VALIDATION": {
+        "FREQUENCY": 100,
+        "2D_TSNE_WITH_IMAGES": {
+            "PLOT": false
+        },
+        "3D_TSNE": {
+            "PLOT": false,
+            "GROUP_BY": {
+                "modality": "xray",
+                "attribute": "Patient Age"
+            }
+        },
+        "TRIPLETS": {
+            "PLOT": false
+        },
+        "SUPPORT_QUERY": {
+            "PLOT": true
+        },
+        "GRADCAM": {
+            "PLOT": false
+        },
+        "SIMILARITY_MATRIX": {
+            "PLOT": true
+        }
+    },
+    "SAVE_PATH": "/path/to/results/xray/models",
+    "LOG_PATH": "/path/to/results/xray/logs",
+    "DEVICE": "cuda:1"
+}

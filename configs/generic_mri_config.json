@@ -1,0 +1,181 @@
+{
+    "PROJECT": {
+        "NAME": "YOUR_PROJECT_NAME",
+        "NOTES": "YOUR_NOTES",
+        "TAGS": [
+            "YOUR",
+            "TAGS",
+            "HERE"
+        ],
+        "ENTITY": "YOUR_ENTITY"
+    },
+    "MODE": "TRAIN",
+    "TESTING": {
+        "R_PRECISION": 1,
+        "RESULT_PATH": "/path/to/results/mri/test",
+        "N_WAY": 251,
+        "K_SHOT": 3,
+        "Q_QUERIES": 1,
+        "TOP_K": 5,
+        "ITERATIONS": 100,
+        "GRADCAM_TARGET_CONV": 2
+    },
+    "EMBEDDER": {
+        "DATA_SPLIT": "/path/to/datasets/mri/brats2021_splits/test.txt",
+        "RESULT_PATH": "/path/to/results/mri/embeddings/embeddings_test.pkl"
+    },
+    "VALIDATION": {
+        "R_PRECISION": 1,
+        "RESULT_PATH": "/path/to/results/mri/val",
+        "N_WAY": 20,
+        "K_SHOT": 1,
+        "Q_QUERIES": 1,
+        "TOP_K": 5,
+        "ITERATIONS": 30,
+        "GRADCAM_TARGET_CONV": 2
+    },
+    "TRAINING": {
+        "NUM_EPOCHS": 400,
+        "SAMPLES_PER_EPOCH": 450,
+        "BATCH_SIZE": 45,
+        "WARM_RESTART_EVERY_N_SAMPLES": 4500,
+        "LOSS": {
+            "NAME": "TRIPLET_LOSS",
+            "SETTINGS": {
+                "margin": 4,
+                "ratio_hard_easy_negative": 1,
+                "distance_metric": "p_norm"
+            }
+        },
+        "OPTIMIZER": {
+            "NAME": "ADAMW",
+            "SETTINGS": {
+                "lr": 0.001
+            }
+        }
+    },
+    "DATASET": {
+        "DATASET_NAME": "brats2021",
+        "DATASET_PATH": "/path/to/datasets/mri/brats2021_data",
+        "TRAINING_SET": "/path/to/datasets/mri/brats2021_splits/train.txt",
+        "DATASET_META_PATH": null,
+        "DATASET_PATH_TEST": "/path/to/datasets/mri/brats2021_data",
+        "VALIDATION_SET": "/path/to/datasets/mri/brats2021_splits/val.txt",
+        "TEST_SET": "/path/to/datasets/mri/brats2021_splits/test.txt",
+        "FILE_TYPE": ".nii.gz",
+        "ANCHOR_MODALITIES": [
+            "t1",
+            "t1ce",
+            "t2",
+            "flair"
+        ],
+        "POSITIVE_MODALITIES": [
+            "t1",
+            "t1ce",
+            "t2",
+            "flair"
+        ],
+        "K_MODALITIES": [
+            "t1",
+            "t1ce",
+            "t2",
+            "flair"
+        ],
+        "Q_MODALITIES": [
+            "t1",
+            "t1ce",
+            "t2",
+            "flair"
+        ],
+        "TRANSFORMS": "BRATS2021",
+        "TRAINING_NUM_POS": 1,
+        "TRAINING_N_SHOT": 1,
+        "VALIDATION_NUM_POS": 10,
+        "VALIDATION_N_SHOT": 1,
+        "NUMBER_OF_IMAGES_PER_PATIENT": null,
+        "RESIZE": [
+            78,
+            120,
+            120
+        ]
+    },
+    "MODEL": {
+        "NAME": "ResNet50",
+        "CHECKPOINT": "/path/to/results/mri_resnet_half_res/train/best_model.pth",
+        "SETTINGS": {
+            "spatial_dims": 3,
+            "in_channels": 1,
+            "pretrained": false,
+            "fixed_params": false,
+            "embedding_size": 128,
+            "block_inplanes": [
+                32,
+                64,
+                128,
+                256
+            ]
+        }
+    },
+    "PLOTTING_TRAINING": {
+        "2D_TSNE_WITH_IMAGES": {
+            "PLOT": true
+        },
+        "3D_TSNE": {
+            "PLOT": true,
+            "GROUP_BY": null
+        },
+        "TRIPLETS": {
+            "PLOT": true
+        },
+        "SUPPORT_QUERY": {
+            "PLOT": false
+        }
+    },
+    "PLOTTING_TESTING": {
+        "FREQUENCY": 100,
+        "2D_TSNE_WITH_IMAGES": {
+            "PLOT": false
+        },
+        "3D_TSNE": {
+            "PLOT": false,
+            "GROUP_BY": null
+        },
+        "TRIPLETS": {
+            "PLOT": false
+        },
+        "SUPPORT_QUERY": {
+            "PLOT": false
+        },
+        "GRADCAM": {
+            "PLOT": false
+        },
+        "SIMILARITY_MATRIX": {
+            "PLOT": false
+        }
+    },
+    "PLOTTING_VALIDATION": {
+        "FREQUENCY": 100,
+        "2D_TSNE_WITH_IMAGES": {
+            "PLOT": false
+        },
+        "3D_TSNE": {
+            "PLOT": true,
+            "GROUP_BY": null
+        },
+        "TRIPLETS": {
+            "PLOT": false
+        },
+        "SUPPORT_QUERY": {
+            "PLOT": true
+        },
+        "GRADCAM": {
+            "PLOT": false
+        },
+        "SIMILARITY_MATRIX": {
+            "PLOT": true
+        }
+    },
+    "SAVE_PATH": "/path/to/results/mri",
+    "LOG_PATH": "/path/to/results/mri/logs",
+    "DEVICE": "cuda:1"
+}
