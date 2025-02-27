@@ -12,9 +12,10 @@ Make sure you have all required dependencies installed.
 1. Locate the generic config files in the `configs/` directory
 2. Create a copy of the appropriate config file
 3. Modify the configuration according to your needs:
-    - Set `mode: "train"` for training
-    - Set `mode: "test"` for testing/inference
+    - Set `"MODE": "TRAIN",` for training
+    - Set `"MODE": "TEST",` for testing/inference
     - Adjust other parameters as needed
+4. For Testing set the model checkpoint
 
 ### Execution
 Run the code using:
